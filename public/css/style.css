@@ -1,0 +1,258 @@
+@viewport {
+  width: device-width;
+  zoom: 1;
+}
+p{
+  padding:10px;
+}
+
+
+.affix {
+      top: 0;
+      width: 100%;
+  }
+
+.affix + .container-fluid {
+    padding-top: 70px;
+    height: 100%;
+}
+
+@media all and (min-width: 420px) {
+  html, body, #container {
+    height: 100%;
+  }
+  body > #container {
+    height: auto;
+    min-height: 100%;
+  }
+
+  .menu > li:not(.menu-text) > a {
+    padding: 1.2rem 1rem; }
+  #about a:link {
+      text-decoration: none;
+      color: black;
+  }
+  #about a:visited {
+      color: black;
+      text-decoration: none;
+  }
+  #about a:hover {
+      color: #7a0000;
+  }
+}
+
+
+/******
+    Header content
+          *****/
+#header-content{
+  margin-bottom:0 !important;
+  background-color: #7a0000;
+  color: white;
+  padding-bottom: 0px;
+}
+.logo-content{
+  float:left;
+  padding-left: 15px;
+}
+.logo-content img.logo{
+  width: 60%;
+  height: 60%;
+}
+.help-links{
+  margin-top: 5%;
+}
+.help-links ul{
+  float:right;
+}
+.help-links a:hover{
+  color:inherit;
+  text-decoration: underline;
+}
+.help-links a{
+  color:white !important;
+}
+
+/******
+      Menu stuff
+              *****/
+#menu-content{
+  background-color: #f2f2f2;
+  border-right: 10px solid #2E2E2E;
+  padding-top: 4%;
+  padding-bottom: 4%;
+  height: -webkit-fill-available;
+}
+#menu-content a{
+  color:#2e2e2e;
+}
+#menu-content a:hover{
+  text-decoration: underline;
+}
+.is-accordion-submenu-parent a, .is-accordion-submenu a {
+  background: #F2F2F2 none repeat scroll 0% 0%;
+}
+[data-accordion-menu] a{
+  box-shadow:inherit;
+}
+[data-accordion-menu] a::after{
+  border-color: #000 transparent transparent;
+}
+.subitem:hover {
+    text-decoration: underline;
+}
+li[role="menuitem"]{
+    margin-left: 10%;
+}
+li[role="menuitem"] input {
+    background: none;
+    border: none;
+}
+
+.list-group.panel > .list-group-item {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px
+}
+.list-group-submenu {
+  margin-left:20px;
+}
+.list-group-item-success{
+  background-color: #ffffff;
+}
+
+
+
+/******
+    Main content
+           ******/
+.responsive-width {
+  white-space:normal !important;
+  word-wrap: break-word;
+}
+#content{
+  height: 100%;
+}
+
+.sidepanel{
+  height:-webkit-fill-available;
+  background-color: #636767;
+  display: flex;
+  flex-direction: column;
+}
+
+#damage{
+  color: white;
+  text-align: center;
+}
+
+#main-content{
+  margin: auto;
+  width: auto;
+  background-color: white;
+  /*overflow-x: auto;*/
+  color: black;
+  height: 100%;
+}
+#main-content h3{
+  padding:10px;
+}
+/* sub content*/
+#sub-content{
+  margin-top: 4%;
+  height: 100%;
+}
+
+.button{
+  display: block;
+  background-color: #777777;
+  margin-right: 1%;
+  color: white;
+  border: 1px solid rgb(242, 242, 242)
+}
+.button:hover{
+  box-shadow: 0px 0px 6px #0D5E5E inset;
+  color: black;
+}
+
+
+/****
+  Footer Stuff
+        ****/
+.footer {
+}
+.footer i {
+  font-size: 100px;
+}
+
+/*.footer h4 {
+  color: #fff;
+  font-size: 1em;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-top: 2.5rem;
+  margin-bottom: 10px;
+}*/
+.footer p, .footer a {
+  font-weight: 300;
+  font-size: .8em;
+  color: #fff;
+}
+
+#slider{
+
+}
+
+@media only screen and (min-width: 40.063em) {
+  .footer .columns:nth-child(n+2) {
+    border-left: 1px solid #b3b3b3;
+    min-height: 280px;
+  }
+}
+.footer-links {
+  list-style-type: none;
+}
+.footer-links li {
+  margin-top: .5em;
+}
+
+@media screen and (max-width: 520px){
+  .logo-content img.logo{
+    display: none;
+  }
+}
+/* Bens Stuff */
+.table{
+  position: absolute;
+  margin: 0px 0px 0px 750px;
+  background-color: #784444;
+  z-index: 1;
+  width: 180px;
+}
+.paddingBetweenCols td
+{
+    padding:0 200px 0 200px;
+}
+.scroll {
+  height:750px;
+  overflow-y: scroll;
+}
+
+.table_scroll {
+  height:600px;
+  overflow-y: scroll;
+}
+
+
+/* Jared Menu stuff*/
+/* allow images to be set height */
+.image_size{
+    height:193px;
+}
+
+/*Allows me to place items inside the block to clean up design*/
+.image_block{
+  width: 100%;
+  height: 195px;
+  display: flex;
+  justify-content: space-around;
+}

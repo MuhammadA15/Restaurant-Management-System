@@ -1,0 +1,125 @@
+app:
+  port:
+    dev: 3001
+    prd: 8085
+  ssl: 'hairclothDuvalierploddingnonpareilsquiggleloofah'
+  session:
+    secret: 'thisisasessionsecretwithalongmoreghastlywords'
+    resave: false
+    rolling: true
+    saveUninitialized: true
+    cookie:
+      httpOnly: true
+      maxAge: 28800000
+  logging:
+    level: debug
+database:
+  username: admin
+  password: admin
+  orders:
+    name: "/orders"
+    url: "localhost:27017"
+  food:
+    name: "/food"
+    url: "localhost:27017"
+  games:
+    name: "/games"
+    url: "localhost:27017"
+  login:
+    name: "/login-js"
+    url: "localhost:27017"
+cache:
+  jobs: "thisneedstobechanged!"
+  master_yaml: "thishasntbeenchangedsoisunsecure"
+limit:
+  login:
+    total: 3
+    expire: 1
+    lookup:
+      - 'body.username'
+tax: 8.25
+schema:
+  items_ordered:
+    name: String
+    amount: Number
+  orders:
+    invoice:
+      total: Number
+      split:
+        type: [String]
+        default: undefined
+      credit_card_number:
+        type: [String]
+        default: undefined
+      credit_card_amount:
+        type: [String]
+        default: undefined
+      cash:
+        type: [String]
+        default: undefined
+      discount:
+        type: [String]
+        default: undefined
+      tip: Number
+      tax: Number
+      items:
+        type: [String]
+        default: undefined
+    paid: Boolean
+    table: String
+    waiter: String
+  food:
+    name: String
+    enabled: Boolean
+    description: String
+    picture: String
+    price: Number
+    specialOfDay: String
+    type: String
+  games:
+    game01:
+      highscore01:
+        name: String
+        score: Number
+      highscore02:
+        name: String
+        score: Number
+      highscore03:
+        name: String
+        score: Number
+    game02:
+      highscore01:
+        name: String
+        score: Number
+      highscore02:
+        name: String
+        score: Number
+      highscore03:
+        name: String
+        score: Number
+tables:
+  table01: waiter01
+  table02: waiter01
+  table03: waiter01
+  table04: waiter01
+  table05: waiter01
+  table06: waiter01
+  table07: waiter01
+  table08: waiter01
+  table09: waiter02
+  table10: waiter02
+  table11: waiter02
+  table12: waiter02
+  table13: waiter02
+  table14: waiter02
+  table15: waiter02
+  table16: waiter02
+  table17: waiter03
+  table18: waiter03
+  table19: waiter03
+  table20: waiter03
+  table21: waiter03
+  table22: waiter03
+  table23: waiter03
+  table24: waiter03
+  takeout: waiter01
