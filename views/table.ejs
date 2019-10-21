@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <title><%= title %></title>
+    <meta charset="utf-8">
+    <!-- If you delete this meta tag World War Z will become a reality -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+  <%- include('table/nav') %>
+
+
+      <div class="row">
+        <div class="col-2 sidepanel" style="height:750px;">
+          <h4 class="text-center">Help</h4>
+          <form action="/assistance" method="post" id="refill">
+            <input type="hidden" id="tableid" name="tableid" value="<%= user.local.username %>"/>
+            <button type="submit" name="type" value="refill" class="btn btn-info btn-block responsive-width d-flex justify-content-center">Request Refill</button>
+          </form>
+          <hr>
+          <form action="/assistance" method="post" id="assistance">
+            <input type="hidden" name="tableid" value="<%= user.local.username %>"/>
+            <button type="submit" name="type" value="assistance" class="btn btn-info btn-block responsive-width d-flex justify-content-center">Request Assistance</button>
+          </form>
+          <hr>
+            <a href="https://restaurant.mineabot.xyz/login"><button type="button" class="btn btn-info btn-block responsive-width">Home</button></a>
+            <hr>
+        </div>
+
+            <% if (message) {%>
+              <div class="col-8"><p><%= message %></p></div>
+            <% } else {%>
+              <% if (typeof(order[0]) != 'undefined' && order[0] && typeof(order[0].table) != 'undefined' ) {%>
+                <%- include('table/order') %>
+              <% } else {%>
+                <%- include('table/menu') %>
+              <% } %>
+
+              <% }%>
+        <div class="col-2 sidepanel" style="height:750px;"></div>
+
+      </div>
+  <%- include('footer') %>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="/js/vendor/notify.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="/js/tableapp.js"></script>
+
+
+</body>
+</html>

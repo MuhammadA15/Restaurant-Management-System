@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Space Invaders</title>
+    <style>
+    	* { padding: 0; margin: 0; }
+    	canvas { background: #000; display: block; margin: 0 auto; }
+    </style>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<canvas id="myCanvas" width="750" height="480"></canvas>
+
+<script>
+	var canvas = document.getElementById("myCanvas");//Canvas and context variables
+	var ctx = canvas.getContext("2d");
+
+	var playerWidth = 25;//Player variables
+	var playerHeight = 25;
+	var playerX = (canvas.width-playerWidth)/2;
+	var playerY = canvas.height - 30;
+	var rightPressed = false;//Keyboard variables
+	var leftPressed = false;
+	var spacePressed = false;
+	var enemyRowCount = 4;//Enemy variables
+	var enemyColumnCount = 10;
+	var enemyWidth = 25;
+	var enemyHeight = 25;
+	var enemyPadding = 20;
+	var enemyOffsetTop = 20;
+	var enemyOffsetLeft = 20;
+	var enemyCount = enemyColumnCount*enemyRowCount;
+	var enemyDx = .5;
+	var enemyDy = 10;
+	var enemyTurnAround = false;
+	var goodLasers = [];//Laser variables
+	var badLasers = [];
+	var laserWidth = 5;
+	var laserHeight = 25;
+	var laserDy = 10;
+	var score = 0;//Game variables
+	var lives = 3;
+	var gameLevel = 1;
+
+	var enemies = [];//Creating enemy matrix
+	for(var c=0; c<enemyColumnCount; c++) {
+		enemies[c] = [];
+		for(var r=0; r<enemyRowCount; r++) {
+			enemies[c][r] = { x: 0, y: 0, status: 1 };
+		}
+	}
+
+	document.addEventListener("keydown", keyDownHandler, false);//Keyboard and mouse listeners
+	document.addEventListener("keyup", keyUpHandler, false);
+	document.addEventListener("mousemove", mouseMoveHandler, false);
+
+	function mouseMoveHandler(e) {//Mouse handler
+		var relativeX = e.clientX - canvas.offsetLeft;
+		if(relativeX > playerWidth/2 && relativeX < canvas.width - playerWidth/2) {
+			playerX = relativeX - playerWidth/2;
+		}
+		else if(relativeX <= playerWidth/2){
+			playerX = 0;
+		}
+		else{
+			playerX = canvas.width - playerWidth;
+		}
+	}
+
+	function keyDownHandler(e) {//Keyboard handlers
+		if(e.keyCode == 39) {
+			rightPressed = true;
+		}
+		else if(e.keyCode == 37) {
+			leftPressed = true;
+		}
+		else if(e.keyCode == 32 && !e.repeat) {
+			spacePressed = true;
+		}
+	}
+
+	function keyUpHandler(e) {
+		if(e.keyCode == 39) {
+			rightPressed = false;
+		}
+		else if(e.keyCode == 37) {
+			leftPressed = false;
+		}
+		else if(e.keyCode == 32) {
+			spacePressed = false;
+		}
+	}
+
+	function nextLevel() {//Sets game to next level
+		score = score + 200 * lives;
+		enemyOffsetTop = 20;
+		enemyOffsetLeft = 20;
+		enemyDx = .5;
+		goodLasers.length = 0;
+		badLasers.length = 0;
+		playerX = (canvas.width-playerWidth)/2;
+		gameLevel++;
+		for(var c=0; c<enemyColumnCount; c++) {
+			for(var r=0; r<enemyRowCount; r++) {
+				enemies[c][r].status = 1;
+			}
+		}
+		enemyCount = enemyColumnCount*enemyRowCount;
+	}
+
+	function gameOver(){
+	    // all_highscores = JSON.parse("<%= JSON.stringify(highscores[0]) %>");
+        // console.log(all_highscores);
+        // highscores = <%= JSON.stringify(highscores[0].game02) %>
+        highscores = {
+            "game02": {
+                "highscore01": {
+                    "name": "<%= highscores[0].game02.highscore01.name %>",
+                    "score": parseInt("<%= highscores[0].game02.highscore01.score %>")
+                },
+                "highscore02": {
+                    "name": "<%= highscores[0].game02.highscore02.name %>",
+                    "score": parseInt("<%= highscores[0].game02.highscore02.score %>")
+                },
+                "highscore03": {
+                    "name": "<%= highscores[0].game02.highscore03.name %>",
+                    "score": parseInt("<%= highscores[0].game02.highscore03.score %>")
+                }
+        }};
+        var isNew = false;
+	    alert("GAME OVER");
+        if(score > highscores.game02.highscore01.score) {
+  	        var name = prompt("New high score!\nEnter your name.");
+            highscores.game02.highscore03.score = highscores.game02.highscore02.score;
+            highscores.game02.highscore03.name = highscores.game02.highscore02.name;
+            highscores.game02.highscore02.score = highscores.game02.highscore01.score;
+            highscores.game02.highscore02.name = highscores.game02.highscore01.name;
+            highscores.game02.highscore01.score = score;
+	        highscores.game02.highscore01.name = name;
+            console.log(`${highscores}`);
+            isNew = true;
+	    }
+        else if (score >  highscores.game02.highscore02.score) {
+            var name = prompt("New high score!\nEnter your name.");
+            highscores.game02.highscore03.score = highscores.game02.highscore02.score;
+            highscores.game02.highscore03.name = highscores.game02.highscore02.name;
+            highscores.game02.highscore02.score = score;
+            highscores.game02.highscore02.name = name;
+            console.log(`${highscores}`);
+            isNew = true;
+        }
+        else if (score > highscores.game02.highscore03.score) {
+            var name = prompt("New high score!\nEnter your name.");
+            highscores.game02.highscore03.score = score;
+            highscores.game02.highscore03.name = name;
+            console.log(`${highscores}`);
+            isNew = true;
+        }
+        if (isNew) {
+            highscores._id = "<%= highscores[0]._id %>";
+                $.post("/games",
+ 		        highscores,
+ 		        function(data, status){
+                console.log(`success write`);
+ 		    });
+            document.location.reload();
+        }
+        else {
+            document.location.reload();
+        }
+    }
+
+	function collisionDetection() {//Handles lasers colliding with enemies and player
+		for(var c=0; c<enemyColumnCount; c++) {
+			for(var r=0; r<enemyRowCount; r++) {
+				var e = enemies[c][r];
+				if(e.status > 0) {
+					for(var i=0; i<goodLasers.length; i++){
+						var l = goodLasers[i];
+						if(l.x+laserWidth > e.x && l.x < e.x+enemyWidth && l.y+laserHeight > e.y && l.y < e.y+enemyHeight) {
+							goodLasers.splice(i, 1);
+							e.status--;
+							score = score + 100;
+							enemyCount--;
+							if(enemyDx > 0){
+								enemyDx += .1;
+							}
+							else{
+								enemyDx -= .1;
+							}
+							if(enemyCount == 0) {
+								nextLevel();
+							}
+						}
+					}
+					if(e.x+enemyWidth > playerX && e.x < playerX+playerWidth && e.y+enemyHeight > playerY && e.y < playerY+playerHeight) {
+						gameOver();
+					}
+					if(e.y+enemyHeight > canvas.height){
+				        gameOver();
+					}
+				}
+			}
+		}
+		for(var i=0; i<badLasers.length; i++){
+			var l = badLasers[i];
+			if(l.x+laserWidth > playerX && l.x < playerX+playerWidth && l.y+laserHeight > playerY && l.y < playerY+playerHeight) {
+				lives--;
+				if(!lives) {
+				    gameOver();
+				}
+				else {
+					playerX = (canvas.width-playerWidth)/2;
+					goodLasers.length = 0;
+					badLasers.length = 0;
+				}
+			}
+		}
+	}
+
+	function drawScore() {//Draws score in upper left
+		ctx.font = "16px Arial";
+		ctx.fillStyle = "#0095DD";
+		ctx.fillText("Score: "+score, 8, 20);
+	}
+
+	function drawLives() {//Draws lives in upper right
+		ctx.font = "16px Arial";
+		ctx.fillStyle = "#0095DD";
+		ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+	}
+
+	function drawLevel() {//Draws current level in upper center
+		ctx.font = "16px Arial";
+		ctx.fillStyle = "#0095DD";
+		ctx.fillText("Level: "+gameLevel, canvas.width/2-25, 20);
+	}
+
+	function drawLasers() {//Draws lasers
+		for(var i=0; i<goodLasers.length; i++){
+			goodLasers[i].y -= laserDy;
+			ctx.beginPath();
+			ctx.rect(goodLasers[i].x, goodLasers[i].y, laserWidth, laserHeight);
+			ctx.fillStyle = "#00FF00";
+			ctx.fill();
+			ctx.closePath();
+		}
+		for(var i=0; i<badLasers.length; i++){
+			badLasers[i].y += laserDy;
+			ctx.beginPath();
+			ctx.rect(badLasers[i].x, badLasers[i].y, laserWidth, laserHeight);
+			ctx.fillStyle = "#FFF000";
+			ctx.fill();
+			ctx.closePath();
+		}
+	}
+
+	function drawEnemies() {//Draws enemies
+		for(var c=0; c<enemyColumnCount; c++) {
+			for(var r=0; r<enemyRowCount; r++) {
+				if(enemies[c][r].status > 0) {
+					var enemyX = (c*(enemyWidth+enemyPadding))+enemyOffsetLeft;
+					var enemyY = (r*(enemyHeight+enemyPadding))+enemyOffsetTop;
+					enemies[c][r].x = enemyX;
+					enemies[c][r].y = enemyY;
+					if(enemyX + enemyWidth + enemyDx > canvas.width || enemyX + enemyDx < 0){
+						enemyTurnAround = true;
+					}
+					ctx.beginPath();
+					ctx.moveTo(enemyX, enemyY);
+					ctx.lineTo(enemyX + enemyWidth/2, enemyY + enemyHeight/4);
+					ctx.lineTo(enemyX + enemyWidth, enemyY);
+					ctx.lineTo(enemyX + enemyWidth, enemyY + enemyHeight*3/4);
+					ctx.lineTo(enemyX + enemyWidth*2/3, enemyY + enemyHeight/2);
+					ctx.lineTo(enemyX + enemyWidth/2, enemyY + enemyHeight);
+					ctx.lineTo(enemyX + enemyWidth/3, enemyY + enemyHeight/2);
+					ctx.lineTo(enemyX, enemyY + enemyHeight*3/4);
+					ctx.fillStyle = "#FF0000";
+					ctx.fill();
+					ctx.closePath();
+				}
+			}
+		}
+	}
+
+	function enemyAI() {//Randomly determines when enemies will fire lasers
+		var j = 1;
+		if(gameLevel > 100){
+			j = gameLevel - 99;
+		}
+		for(var i=0; i<j; i++){
+			var c = Math.floor(Math.random() * enemyColumnCount);
+			var r = Math.floor(Math.random() * enemyRowCount);
+			if(enemies[c][r].status > 0 && Math.random() * 100 < gameLevel){
+				badLasers.push( { x: enemies[c][r].x + enemyWidth/2 - laserWidth/2, y: enemies[c][r].y } );
+			}
+		}
+	}
+
+	function drawPlayer() {//Draw the player's ship
+		ctx.beginPath();
+		ctx.moveTo(playerX, playerY + playerHeight);
+		ctx.arc(playerX + playerWidth / 2, playerY + playerHeight / 2, playerHeight / 2, Math.PI * 3 / 4, Math.PI / 4, true);
+		ctx.lineTo(playerX + playerWidth, playerY + playerHeight);
+		ctx.lineTo(playerX + playerWidth, playerY + playerHeight * 3 / 5);
+		ctx.lineTo(playerX + playerWidth / 2, playerY);
+		ctx.lineTo(playerX, playerY + playerHeight * 3 / 5 );
+		ctx.closePath();
+		ctx.fillStyle = "#0095DD";
+		ctx.fill();
+	}
+
+	function draw() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);//Clear canvas
+		drawPlayer();//Call individual draw functions
+		drawEnemies();
+		drawLasers();
+		drawScore();
+		drawLives();
+		drawLevel();
+		enemyAI();
+		collisionDetection();
+		enemyOffsetLeft += enemyDx;//Updating enemy positions
+		if(enemyTurnAround){
+			enemyTurnAround = false;
+			enemyDx = -enemyDx;
+			enemyOffsetTop += enemyDy;
+		}
+		if(rightPressed && playerX < canvas.width-playerWidth) {//Move player with keyboard controls
+			playerX += 7;
+		}
+		else if(leftPressed && playerX > 0) {
+			playerX -= 7;
+		}
+		if(spacePressed) {//Fire laser when space is pressed
+			goodLasers.push( { x: playerX + playerWidth/2 - laserWidth/2, y: playerY } );
+			spacePressed = false;
+		}
+		for(var i=0; i<goodLasers.length; i++){//Culling lasers that are offscreen
+			if(goodLasers[i].y + laserHeight < 0){
+				goodLasers.splice(i, 1);
+			}
+		}
+		for(var i=0; i<badLasers.length; i++){
+			if(badLasers[i].y > canvas.height){
+				badLasers.splice(i, 1);
+			}
+		}
+		requestAnimationFrame(draw);
+	}
+
+	draw();
+</script>
+
+<p> High scores: </p>
+<h3><%= highscores[0].game02.highscore01.name %>: <%= highscores[0].game02.highscore01.score %></h3><br>
+<h3><%= highscores[0].game02.highscore02.name %>: <%= highscores[0].game02.highscore02.score %></h3><br>
+<h3><%= highscores[0].game02.highscore03.name %>: <%= highscores[0].game02.highscore03.score %></h3><br>
+<div class="image_block">
+    <!-- <% for(var key in highscores[0].game02){ %>
+            <b><%= highscores[0].game02[key].name %>: <%= highscores[0].game02[key].score %></b>
+            <br/>
+    <% } %> -->
+</div>
+<a href="/table"><button type="button" class="btn btn-info btn-block responsive-width">Home</button></a>
+
+
+<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+<script src="/js/vendor/notify.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>

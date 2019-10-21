@@ -1,0 +1,1068 @@
+<div class="row">
+  <div class="col-12">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <!-- navigation bar to move between tabs on the manager screen -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto nav nav-pills nav-fill">
+          <li class="active nav-item"><a class="nav-link" data-toggle="tab" href="#tables">Tables</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#management">Management</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sales_analysis">Sales Analysis</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right nav-pills nav-fill">
+        </ul>
+        <!-- <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form> -->
+      </div>
+    </nav>
+  </div>
+</div>
+<div class="row">
+<div class= "col-12">
+  <div class="tab-content">
+  <div id="tables" class="tab-pane fade in active">
+    <!-- Another navigation bar for each of the tables -->
+    <h3>Tables</h3>
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul class="navbar-nav mr-auto nav nav-pills nav-fill">
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table01">Table 01</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table02">Table 02</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table03">Table 03</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table04">Table 04</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table05">Table 05</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table06">Table 06</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table07">Table 07</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table08">Table 08</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table09">Table 09</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table10">Table 10</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table11">Table 11</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table12">Table 12</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table13">Table 13</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table14">Table 14</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table15">Table 15</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table16">Table 16</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table17">Table 17</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table18">Table 18</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table19">Table 19</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table20">Table 20</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table21">Table 21</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table22">Table 22</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table23">Table 23</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#table24">Table 24</a></li>
+                </ul>
+                </nav>
+              </div>
+
+        </div>
+        <div class="row">
+        <div class="col-12">
+          <!-- This div contains the information for each table -->
+            <div class="tab-content">
+                <div id="table01" class="tab-pane fade table_scroll">
+                    <div class="col-12">
+                    <!-- For loop to step through the list of orders -->
+                    <% orders.forEach(function(order){ %>
+                      <!-- if to find the orders from table01 -->
+                    <% if(order.table === "table01"){ %>
+                            <p><%= order.table%></p>
+                            <div class="row">
+                            <div class="col-8">
+                              <!-- for loop to step through the items in an order -->
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <!-- Print the item -->
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <!-- Print the number of that item -->
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+                                </div>
+                              <% } %>
+                            </div>
+                            <div class="col-4">
+                                <ul>
+                                <!-- Print if it is paid or not -->
+                                <% if(order.paid === true){ %>
+                                    <li> PAID </li>
+                                <% } else { %>
+                                    <li> NOT PAID </li>
+                                <% } %>
+                                </ul>
+                            </div>
+                            </div>
+                        <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <!-- table02 -> table23 are the same as table01 -->
+                <div id="table02" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table02"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table03" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table03"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table04" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table04"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table05" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table05"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table06" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table06"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table07" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table07"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table08" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table08"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table09" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table09"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table10" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table10"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table11" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table11"){ %>
+                        <%order.table%>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table12" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table12"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table13" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table13"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table14" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table14"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table15" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table15"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table16" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table16"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table17" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table17"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table18" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table18"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table19" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table19"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table20" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table20"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table21" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table21"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table22" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table22"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="table23" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "table23"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="24" class="tab-pane fade table_scroll">
+                    <div class="col">
+                      <!-- For loop to step through the list of orders -->
+                    <% orders.forEach(function(order){ %>
+                      <!-- if to find the orders from table01 -->
+                    <% if(order.table === "table24"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                          <!-- for loop to step through the items in an order -->
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <!-- Print the item -->
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <!-- Print the number of that item -->
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                              <!-- Print if it is paid or not -->
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+                <div id="carryout" class="tab-pane fade table_scroll">
+                    <div class="col">
+                    <% orders.forEach(function(order){ %>
+                    <% if(order.table === "carryout"){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-8">
+                              <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <p><%= order.invoice.items[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <p><%= order.invoice.items[++i] %></p>
+                                  </div>
+
+                                </div>
+                              <% } %>
+                            </div>
+                        <div class="col-4">
+                            <ul>
+                            <% if(order.paid === true){ %>
+                                <li> PAID </li>
+                            <% } else { %>
+                                <li> NOT PAID </li>
+                            <% } %>
+                            </ul>
+                        </div>
+                        </div>
+                    <% } %>
+                    <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+   </div>
+  <div id="menu" class="tab-pane fade scroll">
+    <h3>Menu</h3>
+    <div class= "col">
+      <!-- for loop to disable food items -->
+    <% food.forEach(function(item){ %>
+      <!-- if the item is enabled give the option to disable and label the item as enabled -->
+    <% if (item.enabled) {%>
+        <% if (item.type == "entree_menu") {%>
+          <label><%= item.name %>   :Enabled</label>
+          <input type="hidden" name="name" value="<%= user.local.username %>"/>
+          <input type="hidden" name="item" value="<%= item.name %>"/>
+          <!-- if the button is clicked change this.value to false -->
+          <button type="button" onclick="toggle_item(this.value, false)" value="<%= item._id %>" class="btn btn-info btn-block">Disable</button>
+        <% } else if (item.type == "appetizer_menu") { %>
+            <label><%= item.name %>  :Enabled</label>
+            <input type="hidden" name="name" value="<%= user.local.username %>"/>
+            <input type="hidden" name="item" value="<%= item.name %>"/>
+            <!-- if the button is clicked change this.value to false -->
+            <button type="button" onclick="toggle_item(this.value, false)" value="<%= item._id %>" class="btn btn-info btn-block">Disable</button>
+        <% } else if (item.type == "dessert_menu") { %>
+            <label><%= item.name %>   :Enabled</label>
+            <input type="hidden" name="name" value="<%= user.local.username %>"/>
+            <input type="hidden" name="item" value="<%= item.name %>"/>
+            <!-- if the button is clicked change this.value to false -->
+            <button type="button" onclick="toggle_item(this.value, false)" value="<%= item._id %>" class="btn btn-info btn-block">Disable</button>
+        <% } else if (item.type == "drink_menu") { %>
+            <label><%= item.name %>   :Enabled</label>
+            <input type="hidden" name="name" value="<%= user.local.username %>"/>
+            <input type="hidden" name="item" value="<%= item.name %>"/>
+            <!-- if the button is clicked change this.value to false -->
+            <button type="button" onclick="toggle_item(this.value, false)" value="<%= item._id %>" class="btn btn-info btn-block">Disable</button>
+        <% } else if (item.type == "kids_menu") { %>
+            <label><%= item.name %>   :Enabled</label>
+            <input type="hidden" name="name" value="<%= user.local.username %>"/>
+            <input type="hidden" name="item" value="<%= item.name %>"/>
+            <!-- if the button is clicked change this.value to false -->
+            <button type="button" onclick="toggle_item(this.value, false)" value="<%= item._id %>" class="btn btn-info btn-block">Disable</button>
+        <% } %>
+        <!-- otherwise the item is disabled with the option to enable -->
+        <% } else{ %>
+            <% if (item.type == "entree_menu") {%>
+              <label><%= item.name %>   :Disabled</label>
+              <input type="hidden" name="name" value="<%= user.local.username %>"/>
+              <input type="hidden" name="item" value="<%= item.name %>"/>
+              <!-- if the button is clicked change this.value to true -->
+              <button type="button" onclick="toggle_item(this.value, true)" value="<%= item._id %>" class="btn btn-info btn-block">Enable</button>
+            <% } else if (item.type == "appetizer_menu") { %>
+                <label><%= item.name %>   :Disabled</label>
+                <input type="hidden" name="name" value="<%= user.local.username %>"/>
+                <input type="hidden" name="item" value="<%= item.name %>"/>
+                <!-- if the button is clicked change this.value to true -->
+                <button type="button" onclick="toggle_item(this.value, true)" value="<%= item._id %>" class="btn btn-info btn-block">Enable</button>
+            <% } else if (item.type == "dessert_menu") { %>
+                <label><%= item.name %>   :Disabled</label>
+                <input type="hidden" name="name" value="<%= user.local.username %>"/>
+                <input type="hidden" name="item" value="<%= item.name %>"/>
+                <!-- if the button is clicked change this.value to true -->
+                <button type="button" onclick="toggle_item(this.value, true)" value="<%= item._id %>" class="btn btn-info btn-block">Enable</button>
+            <% } else if (item.type == "drink_menu") { %>
+                <label><%= item.name %>   :Disabled</label>
+                <input type="hidden" name="name" value="<%= user.local.username %>"/>
+                <input type="hidden" name="item" value="<%= item.name %>"/>
+                <!-- if the button is clicked change this.value to true -->
+                <button type="button" onclick="toggle_item(this.value, true)" value="<%= item._id %>" class="btn btn-info btn-block">Enable</button>
+            <% } else if (item.type == "kids_menu") { %>
+                <label><%= item.name %>   :Disabled</label>
+                <input type="hidden" name="name" value="<%= user.local.username %>"/>
+                <input type="hidden" name="item" value="<%= item.name %>"/>
+                <!-- if the button is clicked change this.value to true -->
+                <button type="button" onclick="toggle_item(this.value, true)" value="<%= item._id %>" class="btn btn-info btn-block">Enable</button>
+            <% } %>
+        <% } %>
+      <% }) %>
+    </div>
+  </div>
+  <div id="management" class="tab-pane fade">
+      <h3>Management</h3>
+      <p>Add new employee</p>
+      <!-- manage interface -->
+          <div class="row">
+          <div class="col-lg-12 col-md-6">
+              <!-- Sign up FORM -->
+              <form action="/signup" method="post">
+                  <div class="form-group">
+                      <label>username</label>
+                      <input type="text" class="form-control" name="username">
+                  </div>
+                  <div class="form-group">
+                      <label>Password</label>
+                      <input type="password" class="form-control" name="password">
+                  </div>
+                  <label>Group
+                  <select name="group">
+                      <option value="manager">manager</option>
+                      <option value="waiter">waiter</option>
+                      <option value="kitchen">kitchen</option>
+                      <option value="table">table</option>
+                  </select>
+                  </label>
+                  <button type="submit" class="btn btn-dark btn-sm">Signup</button>
+              </form>
+          </div>
+          </div>
+      </div>
+        <div id="sales_analysis" class="tab-pane fade active table_scroll">
+            <div class="row">
+            <div class="col-12">
+                <h3>Sales Analysis</h3>
+            </div>
+            </div>
+          <div class="row">
+            <div class = "col-12">
+              <p>"Total Sales: <%= parseFloat(totalSales).toFixed(2) %>"</p>
+          </div>
+          </div>
+          <div class="row">
+              <p>"Total Tax: <%= parseFloat(totalTax).toFixed(2)  %>"</p>
+            </div>
+            <div class="row">
+              <p>"Waiter 01 tips: <%=  parseFloat(waiter1Tips).toFixed(2) %>"</p>
+            </div>
+            <div class="row">
+              <p>"Waiter 02 tips: <%=  parseFloat(waiter2Tips).toFixed(2) %>"</p>
+            </div>
+            <div class="row">
+              <p>"Waiter 03 tips: <%=  parseFloat(waiter3Tips).toFixed(2) %>"</p>
+            </div>
+            <div class="row"></div>
+            <div class="row"></div>
+            <h3>Compensated items</h3>
+            <% orders.forEach(function(order){ %>
+                <% if(typeof order.invoice.discount != null){ %>
+                        <p><%= order.table %></p>
+                        <div class="row">
+                        <div class="col-12">
+                          <!-- for loop to step through the discounts in an order -->
+                              <% for (var i = 0; i < (order.invoice.discount.length); i++) { %>
+                                <div class="row">
+                                  <div class="col-8">
+                                    <!-- Print the item compensated -->
+                                    <p><%= order.invoice.discount[i] %></p>
+                                  </div>
+                                  <div class="col-4">
+                                    <!-- Print the number of that item compensated -->
+                                    <p><%= order.invoice.discount[++i] %></p>
+                                  </div>
+                                </div>
+                            </div>
+                         <% } %>
+                        </div>
+                <% } %>
+            <% }) %>
+        </div>
+  </div>
+</div>
+</div>

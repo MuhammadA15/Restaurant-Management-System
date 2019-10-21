@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+    <title><%= title %></title>
+    <meta charset="utf-8">
+    <!-- If you delete this meta tag World War Z will become a reality -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+  <div id="header-content" class="callout">
+    <div class="container">
+      <div class="row">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark col-sm-12">
+        <!-- <a class="hide-for-col-sm-only" href="/"><img class="logo" src="/img/logo.gif"></a> -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#default_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="default_nav">
+          <ul class="navbar-nav mr-auto nav nav-pills nav-fill navbar-left">
+            <li class="nav-item"><a class="nav-link" href="/table">Table</a></li>
+            <li class="nav-item"><a class="nav-link" href="/kitchen">Kitchen</a></li>
+            <li class="nav-item"><a class="nav-link" href="/waiter">Waiter</a></li>
+            <li class="nav-item"><a class="nav-link" href="/manager">Manager</a></li>
+            <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right nav-pills nav-fill">
+            <% if (user) { %>
+              <li class="nav-item"><a class="nav-link" href="/logout">Logout <%= user.local.username %></a></li>
+            <% } %>
+          </ul>
+        </div>
+        <div>
+        </div>
+      </nav>
+    </div>
+    </div>
+  </div>
+    <div id="content" class="container">
+      <div id="main-content">
+        <div class="row">
+            <div class="col-2 sidepanel d-none d-lg-block">
+            <% if (title.includes("Waiter")) {%>
+              <form action="/compensate" method="post" id="compensate">
+                <input type="hidden" name="user" value="<%= user.local.username %>"/>
+                <button type="submit" name="type" value="compensate" class="btn btn-info btn-block responsive-width d-flex justify-content-center">Request Manager</button>
+              </form>
+            <% } %>
+            </div>
+          <div class="col-8" id="sub-content">
+            <h1 class="text-center"><%= title %></h1>
+            <hr>
+            <div>
+<% if (message) {%>
+                <p><%= message %></p>
+<% } else {%>
+              <% if (title == "Kitchen") {%>
+                <%- include kitchen.ejs %>
+              <% } else if (title.includes("Waiter")){ %>
+                <%- include waiter.ejs %>
+              <% } else if (title.includes("Manager")){ %>
+                <%- include manager.ejs %>
+              <% } else if (title == "Login"){ %>
+                <%- include login.ejs %>
+              <% } else if (title == "Signup"){ %>
+                <%- include signup.ejs %>
+              <% } else { %>
+                <%- include home.ejs %>
+              <% } %>
+<% }%>
+          </div>
+        </div>
+          <div class="col-2 sidepanel d-none d-lg-block" id="notify"></div>
+      </div>
+    </div>
+  </div>
+  <%- include('footer') %>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="/js/vendor/notify.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <script src="/js/app.js"></script>
+
+  <% if (user) { %>
+    <script type="text/javascript">
+     MYLIBRARY.init(["<%= user.local.group %>", 1, "controlId"]);
+     MYLIBRARY.connectSocketInit();
+  </script>
+  <input hidden="true" value="<%= user.local.username %>" id="username"/>
+  <% } %>
+
+</body>
+</html>

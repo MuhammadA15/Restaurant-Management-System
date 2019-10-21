@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+      <h1><span class="fa fa-sign-in"></span> Signup</h1>
+
+      <!-- Sign up FORM -->
+      <form action="/signup" method="post">
+          <div class="form-group">
+              <label>username</label>
+              <input type="text" class="form-control" name="username">
+          </div>
+          <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control" name="password">
+          </div>
+          <label>Group
+            <select name="group">
+              <option value="manager">manager</option>
+              <option value="waiter">waiter</option>
+              <option value="kitchen">kitchen</option>
+              <option value="table">table</option>
+            </select>
+          </label>
+          <button type="submit" class="btn btn-dark btn-sm">Signup</button>
+      </form>
+  </div>
+</div>

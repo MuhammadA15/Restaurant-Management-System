@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-12">
+      <p>To get logged in enter your <b>Username</b> and <b>password</b>!</p>
+    </div>
+</div>
+
+<div class="row">
+<div class="col-12">
+    <h3>Sign In</h3>
+</div>
+<!-- if the credentials are wrong or there is a server error -->
+<% if (message) {%>
+  <p><%= message %></p>
+  <!--otherwise entrer the credentials -->
+<% } else {%>
+  <div class="col-12">
+    <b>test user account</b>
+    <br>username: table01
+    <br>password: table
+    <form action="/login" method="post">
+      <div class="form-group">
+          <label><b>Username</b></label>
+          <!-- input for the username -->
+          <input placeholder="username" type="text" class="form-control" name="username" autofocus>
+      </div>
+      <div class="form-group">
+          <label><b>Password</b></label>
+          <!-- input for the password -->
+          <input placeholder="password" type="password" class="form-control" name="password">
+      </div>
+      <!-- button to send the login information to routes -->
+      <button type="submit" class="btn btn-dark btn-sm">Login</button>
+  </form>
+  </div>
+<% } %>
+</div>

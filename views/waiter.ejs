@@ -1,0 +1,75 @@
+<%# <div class="large-12 columns">
+<hr>
+<!-- Waiter interface -->
+<div class="row">
+  <div class="large-6 medium-12 columns">
+
+  </div>
+  <div class="large-6 columns visit-site">
+
+  </div>
+</div>
+  <hr>
+</div> %>
+<h3>New Orders</h3>
+<div class="container" id="kitchen"></div>
+<hr>
+<!-- container for the list of orders -->
+<div class ='containter scroll'>
+  <div class="row">
+    <div class="col">
+      <h4>Order</h4>
+    </div>
+    <div class="col">
+      <h4>Payment status</h4>
+    </div>
+  </div>
+  <!-- For loop to step through all orders -->
+  <% orders.forEach(function(order){ %>
+    <!-- if statement to find the orders that are relvent to the logged in waiter -->
+    <% if(user.local.username === order.waiter){ %>
+      <div class="row">
+        <div class="col">
+          <ol>
+            <hr>
+            <div class="row">
+              <!-- Print order table number -->
+              <p><%= order.table %></p>
+            </div>
+            <!-- for loop to list the items in an order -->
+            <% for (var i = 0; i < (order.invoice.items.length); i++) { %>
+              <div class="row">
+                <div class="col-8">
+                  <!-- prints item -->
+                  <p><%= order.invoice.items[i] %></p>
+                </div>
+                <div class="col-4">
+                  <!-- Prints the amount of previous item -->
+                  <p><%= order.invoice.items[++i] %></p>
+                </div>
+              </div>
+            <% } %>
+          </ol>
+        </div>
+        <div class="col">
+          <ul>
+            <!-- if to check if order is paid or not -->
+            <% if(order.paid === true){ %>
+              <hr>
+              <li> PAID </li>
+            <% } else { %>
+              <hr>
+              <li> NOT PAID </li>
+              <% } %>
+          </ul>
+        </div>
+      </div>
+    <% } %>
+  <% }) %>
+  <hr>
+  <div class="row">
+    <div class="col">
+    </div>
+  </div>
+</div>
+<div class="row" id="kitchen"></div>
