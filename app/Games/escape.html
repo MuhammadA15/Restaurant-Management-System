@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Escape</title>
+    <style>
+    	* { padding: 0; margin: 0; }
+    	canvas { background: #eee; display: block; margin: 0 auto; }
+    </style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="750" height="480"></canvas>
+
+<script>
+	var canvas = document.getElementById("myCanvas");//Canvas and context variables
+	var ctx = canvas.getContext("2d");
+	
+	var playerWidth = 50;//Player variables
+	var playerHeight = 25;
+	var playerX = 30;
+	var playerY = (canvas.height-playerHeight) / 2;
+	var upPressed = false;//Keyboard variables
+	var downPressed = false;
+	var carWidth = 75;//car variables
+	var carHeight = 35;
+	var cars = [];
+	var score = 0;//Game variables
+	var gameLevel = 1;
+	
+	document.addEventListener("keydown", keyDownHandler, false);//Keyboard and mouse listeners
+	document.addEventListener("keyup", keyUpHandler, false);
+	document.addEventListener("mousemove", mouseMoveHandler, false);
+	
+	function mouseMoveHandler(e) {//Mouse handler
+		var relativeY = e.clientY - canvas.offsetTop;
+		if(relativeY > playerHeight/2 && relativeY < canvas.height - playerHeight/2) {
+			playerY = relativeY - playerHeight/2;
+		}
+		else if(relativeY <= playerHeight/2){
+			playerY = 0;
+		}
+		else{
+			playerY = canvas.height - playerHeight;
+		}
+	}
+	
+	function keyDownHandler(e) {//Keyboard handlers
+		if(e.keyCode == 38) {
+			upPressed = true;
+		}
+		else if(e.keyCode == 40) {
+			downPressed = true;
+		}
+	}
+
+	function keyUpHandler(e) {
+		if(e.keyCode == 38) {
+			upPressed = false;
+		}
+		else if(e.keyCode == 40) {
+			downPressed = false;
+		}
+	}
+	
+	function collisionDetection(){//Checks if cars collide with player or each other
+		for(var i=0; i<cars.length; i++){
+			if(cars[i].x+carWidth > playerX && cars[i].x < playerX+playerWidth && cars[i].y+carHeight > playerY && cars[i].y < playerY+playerHeight) {
+				alert("GAME OVER");
+				document.location.reload();
+			}
+			for(var j=0; j<cars.length; j++){
+				if(i != j && cars[i].x+carWidth > cars[j].x && cars[i].x < cars[j].x+carWidth && cars[i].y+carHeight > cars[j].y && cars[i].y < cars[j].y+carHeight) {
+					if(cars[i].dx > -20){
+						cars[i].dx--;
+					}
+					if(cars[j].dx > -20){
+						cars[j].dx--;
+					}
+				}
+			}
+		}
+	}
+	
+	function drawScore() {//Draws score in upper left
+		ctx.font = "16px Arial";
+		ctx.fillStyle = "#000000";
+		ctx.fillText("Score: "+score, 8, 20);
+	}
+	
+	function spawnCars() {//Randomly creates cars
+		if(score % 1000 == 0){
+			gameLevel++;
+		}
+		if(Math.random() * 100 < gameLevel){
+			cars.push( { x: canvas.width, y: Math.random()*(canvas.height-carHeight), dx: Math.random()*-10 } );
+		}
+	}
+	
+	function drawCars() {//Draw cars
+		for(var i=0; i<cars.length; i++){
+			cars[i].x += cars[i].dx;
+			ctx.beginPath();
+			ctx.moveTo(cars[i].x, cars[i].y + carHeight*7/8);
+			ctx.arc(cars[i].x + carWidth/8, cars[i].y + carHeight*7/8, carHeight/8, Math.PI, 0, true); 
+			ctx.arc(cars[i].x + carWidth*7/8, cars[i].y + carHeight*7/8, carHeight/8, Math.PI, 0, true);
+			ctx.lineTo(cars[i].x + carWidth, cars[i].y + carHeight*7/8);
+			ctx.lineTo(cars[i].x + carWidth, cars[i].y + carHeight/2);
+			ctx.lineTo(cars[i].x + carWidth*4/5, cars[i].y + carHeight/2);
+			ctx.lineTo(cars[i].x + carWidth*3/5, cars[i].y);
+			ctx.lineTo(cars[i].x + carWidth/4, cars[i].y);
+			ctx.closePath();
+			ctx.fillStyle = "#FF0000";
+			ctx.fill();
+		}
+	}
+	
+	function drawPlayer() {//Draw the player's vehicle
+		ctx.beginPath();
+		ctx.moveTo(playerX, playerY);
+		ctx.arc(playerX + playerHeight/3, playerY + playerHeight*2/3, playerHeight/3, Math.PI*3/2, 0, true);
+		ctx.arc(playerX + playerWidth - playerHeight/3, playerY + playerHeight*2/3, playerHeight/3, Math.PI, Math.PI*3/2, true);
+		ctx.arc(playerX + playerWidth/2, playerY + playerHeight, playerHeight, Math.PI*11/6, Math.PI*3/2, true);
+		ctx.closePath();
+		ctx.fillStyle = "#0095DD";
+		ctx.fill();
+	}
+	
+	function draw() {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);//Clear canvas
+		drawPlayer();//Call individual draw functions
+		drawCars();
+		drawScore();
+		spawnCars();
+		collisionDetection();
+		if(downPressed && playerY < canvas.height-playerHeight) {//Move player with keyboard controls
+			playerY += 7;
+		}
+		else if(upPressed && playerY > 0) {
+			playerY -= 7;
+		}
+		for(var i=0; i<cars.length; i++){//Remove cars that are offscreen
+			if(cars[i].x + carWidth < 0){
+				cars.splice(i, 1);
+			}
+		}
+		score++;
+		requestAnimationFrame(draw);
+	}
+	
+	draw();
+</script>
+
+</body>
+</html>
