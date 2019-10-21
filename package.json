@@ -1,0 +1,50 @@
+{
+  "name": "WACCTM",
+  "version": "0.0.1",
+  "description": "a restaraunt",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "ntest": "sudo pm2 stop csce4444 && node csce4444.js",
+    "start": "sudo pm2 start csce4444.js",
+    "restart": "git pull origin master && sudo pm2 restart csce4444",
+    "stop": "sudo pm2 stop csce4444"
+  },
+  "author": "wacctm",
+  "license": "ISC",
+  "dependencies": {
+    "async": "x.x.x",
+    "bcrypt-nodejs": "x.x.x",
+    "body-parser": "x.x.x",
+    "config": "1.x.x",
+    "connect-flash": "0.x.x",
+    "cookie-parser": "x.x.x",
+    "csurf": "x.x.x",
+    "ejs": "x.x.x",
+    "ejs-mate": "x.x.x",
+    "express": "4.x.x",
+    "express-session": "x.x.x",
+    "helmet": "2.x.x",
+    "jenkins": "0.x.x",
+    "js-yaml": "x.x.x",
+    "method-override": "x.x.x",
+    "mongoose": "x.x.x",
+    "morgan": "x.x.x",
+    "node-cache": "4.x.x",
+    "passport": "x.x.x",
+    "passport-local": "x.x.x",
+    "ps-tree": "1.x.x",
+    "simple-git": "x.x.x",
+    "socket.io": "x.x.x",
+    "socket.io-client": "x.x.x",
+    "winston": "2.x.x"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
+    "colors": "0.x.x",
+    "jest": "^23.6.0",
+    "regenerator-runtime": "^0.12.1"
+  },
+  "engine": "node >= 0.4.1"
+}
